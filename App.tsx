@@ -11,6 +11,12 @@ import { useEffect, useState } from 'react';
 import AuthContext from './src/context/AuthContext';
 import { StreamColors } from './src/constants/Colors';
 
+import { Amplify, Auth } from 'aws-amplify';
+import awsconfig from './src/aws-exports';
+import { withAuthenticator } from 'aws-amplify-react-native';
+
+Amplify.configure(awsconfig);
+
 const API_KEY = "xmcvcbgkcwu8";
 const client = StreamChat.getInstance(API_KEY);
 
@@ -18,7 +24,7 @@ const theme: DeepPartial<Theme> = {
 	colors: StreamColors
 };
 
-export default function App() {
+function App() {
 	const isLoadingComplete = useCachedResources();
 
 	useEffect(() => {
@@ -32,7 +38,7 @@ export default function App() {
 	} else {
     	return (
     		<SafeAreaProvider>
-				<AuthContext>
+				<AuthContext client={client}>
 					<OverlayProvider giphyVersion={'original'} value={{ style: theme }}>
 						<Chat client={client}>
 							
@@ -47,3 +53,5 @@ export default function App() {
 		);
 	}
 }
+
+export default withAuthenticator(App);

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "hyperstream",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/home/nimesh/Desktop/Development/HyperStream/amplify/backend/api/hyperstream/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authHyperStream"
+    }
+  }
+}

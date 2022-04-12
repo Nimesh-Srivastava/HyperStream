@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "hyperstream",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authHyperStream",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

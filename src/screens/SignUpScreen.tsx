@@ -19,6 +19,7 @@ const SignUpScreen = () => {
 	const { setUserId } = useAuthContext();
 
 	const connectUser = async () => {
+
 		await client.connectUser(
 			{
 				id: username,
@@ -42,8 +43,8 @@ const SignUpScreen = () => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<ScrollView>
-				<Text style={styles.title}>Welcome back</Text>
-				<Text style={styles.subtitle}>We are so excited to see you again</Text>
+				<Text style={styles.title}>Welcome</Text>
+				<Text style={styles.subtitle}>Login to go HYPER !</Text>
 
 				<Text style={styles.text}>ACCOUNT INFORMATION</Text>
 
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: "white",
-		fontSize: 30,
+		fontSize: 40,
 		fontWeight: "bold",
 		alignSelf: "center",
 		marginVertical: 10,
@@ -98,6 +99,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		alignSelf: "center",
 		marginBottom: 30,
+		marginTop: 5,
 	},
 	input: {
 		backgroundColor: "#202225",

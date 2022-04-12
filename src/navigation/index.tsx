@@ -29,13 +29,13 @@ function RootNavigator() {
 	return (
 		<Stack.Navigator>
 
-			{!userId ? (
+			{/* {!userId ? (
 				<Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
 			) : (
 				<Stack.Screen name="Root" component={DrawerNavigator} options={{ headerShown: false }} />
-			)}
-
-			{/* <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} /> */}
+			)} */}
+			
+			<Stack.Screen name="Root" component={DrawerNavigator} options={{ headerShown: false }} />
 		</Stack.Navigator>
 	);
 }
