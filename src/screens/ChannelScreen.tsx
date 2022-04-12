@@ -26,7 +26,7 @@ const ChannelScreen = () => {
     const MyEmptyComponent = () => null;
 
     return (
-        <Channel channel={channel} DateHeader={MyEmptyComponent} key={channel.data.name}>
+        <Channel channel={channel} DateHeader={MyEmptyComponent} key={channel.data.id}>
             <MessageList />
             <MessageInput />
         </Channel>

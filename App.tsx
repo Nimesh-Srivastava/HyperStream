@@ -15,7 +15,7 @@ import { Amplify, Auth } from 'aws-amplify';
 import awsconfig from './src/aws-exports';
 import { withAuthenticator } from 'aws-amplify-react-native';
 
-Amplify.configure(awsconfig);
+Amplify.configure({...awsconfig, Analytics: { disabled: true }});
 
 const API_KEY = "xmcvcbgkcwu8";
 const client = StreamChat.getInstance(API_KEY);

@@ -1,14 +1,15 @@
 import { 
     createDrawerNavigator,
-    DrawerContentScrollView,
     } from '@react-navigation/drawer';
-import React from 'react';
-import { Text, StyleSheet, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { Text, StyleSheet, SafeAreaView, View } from 'react-native';
 import { color } from 'react-native-reanimated';
 import { ChannelList } from 'stream-chat-expo';
 import ChannelScreen from '../screens/ChannelScreen';
+import UserListScreen from '../screens/UserListScreen';
 import { useAuthContext } from '../context/AuthContext';
 import { Auth } from 'aws-amplify';
+import Button from '../components/Button';
 
 const Drawer = createDrawerNavigator();
 
@@ -22,19 +23,26 @@ const DrawerNavigator = () => {
             component={ChannelScreen} 
             options={{ title: "Channel"}}
             />
+            <Drawer.Screen 
+            name="UserListScreen" 
+            component={UserListScreen} 
+            options={{ title: "Users"}}
+            />
         </Drawer.Navigator>
     );
 };
 
 const CustomDrawerContent = (props) => {
+    const [tab, setTab] = useState("public");
 
     const { userId } = useAuthContext();
+    const { navigation } = props;
 
     const filters = { members: { $in: [userId] } };
     const publicFilters = { type: 'livestream' }
 
     const onChannelSelect = (channel) => {
-        props.navigation.navigate("ChannelScreen", { channel });
+        navigation.navigate("ChannelScreen", { channel });
 	}
 
     const logout = () => {
@@ -47,13 +55,33 @@ const CustomDrawerContent = (props) => {
                 Development Server
             </Text>
 
-            <Text style={styles.logout} onPress={logout}>LOGOUT</Text>
+            <View style={styles.tabs}>
+                <Text 
+                onPress={() => setTab('public')}
+                style={[styles.groupTitle, 
+                    {color: tab==='public' ? '#5964E8' : 'grey',
+                    borderColor: tab==='public' ? '#5964E8' : '#160D00',
+                    }
+                    ]}>PUBLIC</Text>
+                <Text 
+                onPress={() => setTab('private')}
+                style={[styles.groupTitle, 
+                    {color: tab==='private' ? '#5964E8' : 'grey',
+                    borderColor: tab==='private' ? '#5964E8' : '#160D00',
+                    }
+                    ]}>PRIVATE</Text>
+            </View>
 
-            <Text style={styles.groupTitle}>Public channels</Text>
-            <ChannelList onSelect={onChannelSelect} filters={publicFilters}/>
+            {tab==='public' ? (
+                <ChannelList onSelect={onChannelSelect} filters={publicFilters}/>
+            ) : (
+                <>
+                    <Button title='New Conversation' onPress={() => {navigation.navigate('UserListScreen')}}/>
+                    <ChannelList onSelect={onChannelSelect} filters={filters}/>
+                </>
+            )}
 
-            <Text style={styles.groupTitle}>Private channels</Text>
-            <ChannelList onSelect={onChannelSelect} filters={filters}/>
+<Text style={styles.logout} onPress={logout}>LOG OUT</Text>
         </SafeAreaView>
     );
 };
@@ -66,26 +94,34 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 40,
         marginBottom: 20,
-        borderWidth: 2,
-        borderColor: 'white',
+        // borderWidth: 2,
+        // borderColor: 'white',
         padding: 10,
     },
     groupTitle: {
-        color: '#5964E8',
         alignSelf: 'center',
-        borderBottomWidth: 1,
-        borderColor: 'grey',
-        padding: 3,
+        borderBottomWidth: 3,
+        paddingBottom: 6,
+        paddingHorizontal: 10,
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 25,
     },
     logout: {
         color: 'black',
         fontSize: 16,
         fontWeight: 'bold',
-        padding: 10,
-        margin: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        marginBottom: 10,
         alignSelf: 'center',
         backgroundColor: 'red',
-    }
+        borderRadius: 7,
+    },
+    tabs: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+    },
 });
 
 
