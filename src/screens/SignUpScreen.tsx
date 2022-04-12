@@ -29,11 +29,13 @@ const SignUpScreen = () => {
 			client.devToken(username)
 		);
 
+		const channel = client.channel('livestream', 'public', { name: 'General' });
+		await channel.watch();
+
 		setUserId(username);
 	};
 
 	const signUp = () => {
-		console.warn("Signing up: ", username);
 		connectUser();
 	};
 
@@ -117,12 +119,14 @@ const styles = StyleSheet.create({
 	},
 	forgotPasswordText: {
 		color: "#4CABEB",
-		marginVertical: 5,
+		marginVertical: 20,
+		alignSelf: 'center',
 	},
 	text: {
 		color: "white",
 		fontWeight: "bold",
-		marginVertical: 5,
+		marginTop: 10,
+		marginBottom: 5,
 	},
 });
 
