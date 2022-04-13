@@ -32,7 +32,11 @@ const UserListScreen = () => {
     }
 
     return (
-        <FlatList data={users} renderItem={({item}) => <UserListItem user={item} onPress={startChannel}/>} />
+        <FlatList 
+        data={users} 
+        renderItem={({item}) => 
+            <UserListItem user={item} onPress={startChannel}/>
+        }/>
     )
 };
 

@@ -1,10 +1,17 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { AntDesign, Feather } from '@expo/vector-icons';
+import React from "react";
 
-const UserListItem = ({ user, onPress }) => {
+const UserListItem = ({ user, onPress, isSelected = false }) => {
     return (
         <Pressable style={styles.container} onPress={() => onPress(user)}>
             <Image source={{ uri: user.image }} style={styles.image}/>
             <Text style={styles.text}>{user.name}</Text>
+            <View style={{ marginLeft: 'auto' }}>
+                {isSelected && 
+                    <AntDesign name="checkcircle" size={22} color="#5964E8" />
+                    }
+            </View>
         </Pressable>
     )
 };

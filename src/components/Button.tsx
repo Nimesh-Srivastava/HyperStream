@@ -1,5 +1,4 @@
 import { Pressable, StyleSheet, Text, View } from "react-native"
-import Colors from "../constants/Colors";
 
 const Button = ({ title = "Button", onPress = () => {} }) => {
     return (
@@ -11,8 +10,7 @@ const Button = ({ title = "Button", onPress = () => {} }) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 2,
-        borderColor: 'orange',
+        backgroundColor: 'grey',
         borderRadius: 8,
         marginBottom: 25,
         marginTop: 10,
@@ -21,7 +19,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        color: 'orange',
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 });
 
