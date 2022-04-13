@@ -1,7 +1,7 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName } from 'react-native';
+import { ActivityIndicator, ColorSchemeName } from 'react-native';
 
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -25,6 +25,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
 
 	const { userId } = useAuthContext();
+
+	if(!userId){
+		return <ActivityIndicator />
+	}
 
 	return (
 		<Stack.Navigator>

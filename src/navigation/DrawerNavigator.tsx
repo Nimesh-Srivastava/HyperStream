@@ -2,14 +2,17 @@ import {
     createDrawerNavigator,
     } from '@react-navigation/drawer';
 import React, { useState } from 'react';
-import { Text, StyleSheet, SafeAreaView, View } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, View, Pressable } from 'react-native';
 import { color } from 'react-native-reanimated';
 import { ChannelList } from 'stream-chat-expo';
 import ChannelScreen from '../screens/ChannelScreen';
 import UserListScreen from '../screens/UserListScreen';
+import ChannelMemberScreen from '../screens/ChannelMemberScreen';
 import { useAuthContext } from '../context/AuthContext';
 import { Auth } from 'aws-amplify';
 import Button from '../components/Button';
+import { FontAwesome5 } from '@expo/vector-icons';
+import NewChannelScreen from '../screens/NewChannelScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,11 +24,34 @@ const DrawerNavigator = () => {
             <Drawer.Screen 
             name="ChannelScreen" 
             component={ChannelScreen} 
-            options={{ title: "Channel"}}
+            options={({ navigation, route }) => ({ 
+                title: "Channel",
+                headerRight: () =>
+                    route?.params?.channel && (
+                    <Pressable style={styles.icon} onPress={() => navigation.navigate("ChannelMemberScreen", {channel: route?.params?.channel})}>
+                        <FontAwesome5 
+                        name="users-cog" 
+                        size={20} 
+                        // color="#5964E8" 
+                        color="lightgrey" 
+                        />
+                    </Pressable>
+                ),
+            })}
             />
             <Drawer.Screen 
             name="UserListScreen" 
             component={UserListScreen} 
+            options={{ title: "Users"}}
+            />
+            <Drawer.Screen 
+            name="ChannelMemberScreen" 
+            component={ChannelMemberScreen} 
+            options={{ title: "Group Details"}}
+            />
+            <Drawer.Screen 
+            name="NewChannelScreen" 
+            component={NewChannelScreen} 
             options={{ title: "Users"}}
             />
         </Drawer.Navigator>
@@ -38,8 +64,8 @@ const CustomDrawerContent = (props) => {
     const { userId } = useAuthContext();
     const { navigation } = props;
 
-    const filters = { members: { $in: [userId] } };
-    const publicFilters = { type: 'livestream' }
+    const privateFilters = { type: 'messaging', members: { $in: [userId] } };
+    const publicFilters = { type: { $ne: 'messaging' }, members: { $in: [userId] } };
 
     const onChannelSelect = (channel) => {
         navigation.navigate("ChannelScreen", { channel });
@@ -73,11 +99,14 @@ const CustomDrawerContent = (props) => {
             </View>
 
             {tab==='public' ? (
-                <ChannelList onSelect={onChannelSelect} filters={publicFilters}/>
+                <>
+                    <Button title='Create Channel' onPress={() => {navigation.navigate('NewChannelScreen')}}/>
+                    <ChannelList onSelect={onChannelSelect} filters={publicFilters}/>
+                </>
             ) : (
                 <>
                     <Button title='New Conversation' onPress={() => {navigation.navigate('UserListScreen')}}/>
-                    <ChannelList onSelect={onChannelSelect} filters={filters}/>
+                    <ChannelList onSelect={onChannelSelect} filters={privateFilters}/>
                 </>
             )}
 
@@ -122,6 +151,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
     },
+    icon: {
+        marginHorizontal: 15,
+    }
 });
 
 

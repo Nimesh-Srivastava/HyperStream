@@ -14,7 +14,6 @@ const UserListScreen = () => {
     
     const fetchUsers = async () => {
         const response = await client.queryUsers({});
-        // console.log(response);
         setUsers(response.users);
     }
 
@@ -23,7 +22,7 @@ const UserListScreen = () => {
     }, []);
 
     const startChannel = async (user) => {
-        const channel = client.channel('messaging', {
+        const channel = client.channel("messaging", {
             members: [userId, user.id],
         });
 

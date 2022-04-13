@@ -11,7 +11,6 @@ const Button = ({ title = "Button", onPress = () => {} }) => {
 
 const styles = StyleSheet.create({
     container: {
-        // backgroundColor: Colors.light.tint,
         borderWidth: 2,
         borderColor: 'orange',
         borderRadius: 8,
@@ -23,7 +22,6 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'orange',
-
     },
 });
 

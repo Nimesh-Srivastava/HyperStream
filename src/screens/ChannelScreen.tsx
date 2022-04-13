@@ -5,10 +5,10 @@ import { Channel, MessageInput, MessageList } from "stream-chat-expo";
 
 const ChannelScreen = () => {
     const route = useRoute();
-    const channel = route.params?.channel;
+    const channel = route?.params?.channel;
     const navigation = useNavigation();
     
-    navigation.setOptions({ title: channel?.data?.name || "HomeScreen" })
+    // navigation.setOptions({ title: channel?.data?.name || "HomeScreen" })
 
     if(!channel) {
         return (
@@ -36,7 +36,6 @@ const ChannelScreen = () => {
 const styles = StyleSheet.create({
     welcome: {
         flex: 1,
-        // justifyContent: 'center',
         alignItems: 'center',
         padding: 5,
         marginTop: 70,
