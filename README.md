@@ -1,7 +1,5 @@
 # HyperStream
-
 Streaming and chatting application for android and iOS.
-<br>
 <br>
 
 ## Technologies used :-
@@ -14,7 +12,6 @@ Streaming and chatting application for android and iOS.
 *Back end :*
 * Stream Maker
 * Amazon Web Services(AWS Amplify, AWS GraphQL)
-<br>
 <br>
 
 ***
