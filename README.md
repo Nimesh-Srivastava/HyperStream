@@ -6,4 +6,6 @@ Streaming and chatting application for android and iOS.
 
 ## Technologies used :-
 
-* Front end *
+*Front end :*
+* React native
+* Expo cli
