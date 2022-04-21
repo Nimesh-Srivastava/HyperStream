@@ -19,8 +19,7 @@ Streaming and chatting application for android and iOS.
 
 ***
 <br>
-
-:warning : Some files are missing in this code base due to security issue. So, app development from the given code base is not possible. If you want to develop it further, email @ nimeshsrivastava00@gmail.com for the missing files.
+Some files are missing in this code base due to security issue. So, app development from the given code base is not possible. If you want to develop it further, email @ nimeshsrivastava00@gmail.com for the missing files.
 <br>
 
 ***
