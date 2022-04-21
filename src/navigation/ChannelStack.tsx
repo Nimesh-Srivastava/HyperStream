@@ -51,8 +51,7 @@ const MembersIcon = ({ route, navigation }) => {
             
             <FontAwesome5 
             name="users-cog" 
-            size={20} 
-            // color="#5964E8" 
+            size={20}
             color="lightgrey" />
 
         </Pressable>
